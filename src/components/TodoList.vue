@@ -1,12 +1,14 @@
 <template>
   <div class="todo-list-wrap">
-    <ul class="todo-list">
-      <li v-for="(item, index) in todos" :key="index" class="todo">
+    <ul class="todo-list list-group">
+      <li v-for="(item, index) in todos" :key="index" class="todo list-group-item">
         <i class="fas fa-times" @click="remove(index)"></i>
         {{ item }}
       </li>
     </ul>
-    <input v-model="nextDo" type="text" @keyup.enter="add">
+
+    <label for="todo-input">Что бы еще сделать такого?</label>
+    <input id="todo-input" v-model="nextDo" type="text" class="form-control" @keyup.enter="add">
   </div>
 </template>
 
@@ -20,7 +22,7 @@ export default {
   },
   methods: {
     add: function() {
-      if (!this.todos.includes(this.nextDo)) {
+      if (!this.todos.includes(this.nextDo) && this.nextDo) {
         this.todos.push(this.nextDo);
       }
       this.nextDo = '';

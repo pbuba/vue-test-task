@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Todo from './views/Todo.vue';
+import Filtering from './views/Filtering.vue';
 import About from './views/About.vue';
 
 Vue.use(Router);
@@ -17,6 +18,11 @@ export default new Router({
       path: '/todo',
       name: 'todo',
       component: Todo
+    },
+    {
+      path: '/filtering',
+      name: 'filtering',
+      component: Filtering
     },
     {
       path: '/about',
