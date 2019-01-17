@@ -10,24 +10,20 @@
 
     <input v-model="query" type="text" placeholder="Search">
 
-    <ul class="list-group">
+    <ul v-if="isFilter" class="list-group">
       <li v-for="(item, index) in filterList" :key="index" class="list-group-item">
-        {{ item | highlight }}
+        {{ item }}
       </li>
+    </ul>
+
+    <ul v-if="isHighlight" class="list-group">
+      <li v-for="(item, index) in filterList" :key="index" class="list-group-item" v-html="highlight(item)"></li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  filters: {
-    highlight: function(element) {
-      console.log(element, this.query);
-      element.replace(new RegExp(this.query, 'gi'), match => {
-        return '<span class="highlightText">' + match + '</span>';
-      });
-    }
-  },
   data: function() {
     return {
       query: '',
@@ -100,11 +96,14 @@ export default {
     };
   },
   computed: {
+    isFilter: function() {
+      return this.type === 'filter';
+    },
+    isHighlight: function() {
+      return this.type === 'highlight';
+    },
     filterList: function() {
-      if (this.type === 'filter') {
-        return this.filterArr(this.query);
-      }
-      return this.list;
+      return this.filterArr(this.query);
     }
   },
   methods: {
@@ -112,23 +111,22 @@ export default {
       return this.list.filter(function(el) {
         return el.toLowerCase().indexOf(query.toLowerCase()) > -1;
       });
+    },
+    highlight: function(element) {
+      if (this.query !== '') {
+        return element.replace(
+          new RegExp(this.query, 'gi'),
+          '<span class="highlightText">' + this.query + '</span>'
+        );
+      } else {
+        return element;
+      }
     }
-    // highlightArr: function(query) {
-    //   if (!query) {
-    //     return this.list;
-    //   }
-    //   return this.list.map(function(element) {
-    //     // console.log(element);
-    //     element.replace(new RegExp(this.query, 'gi'), match => {
-    //       return '<span class="highlightText">' + match + '</span>';
-    //     });
-    //   });
-    // }
   }
 };
 </script>
 
-<style scoped>
+<style>
 .highlightText {
   background-color: yellow;
 }
