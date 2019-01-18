@@ -1,14 +1,16 @@
 <template>
   <div>
-    <button type="button">
-      <i class="fas fa-filter"></i>
-    </button>
+    <div class="form-group row">
+      <button class="btn btn-primary" type="button" :disabled="isFilter" @click="chooseFilterType">
+        <i class="fas fa-filter"></i>
+      </button>
 
-    <button type="button">
-      <i class="far fa-lightbulb"></i>
-    </button>
+      <button class="btn btn-primary" type="button" :disabled="isHighlight" @click="chooseHighlightType">
+        <i class="far fa-lightbulb"></i>
+      </button>
 
-    <input v-model="query" type="text" placeholder="Search">
+      <input v-model="query" type="text" placeholder="Search">
+    </div>
 
     <ul v-if="isFilter" class="list-group">
       <li v-for="(item, index) in filterList" :key="index" class="list-group-item">
@@ -17,7 +19,7 @@
     </ul>
 
     <ul v-if="isHighlight" class="list-group">
-      <li v-for="(item, index) in filterList" :key="index" class="list-group-item" v-html="highlight(item)"></li>
+      <li v-for="(item, index) in list" :key="index" class="list-group-item" v-html="highlight(item)"></li>
     </ul>
   </div>
 </template>
@@ -27,7 +29,7 @@ export default {
   data: function() {
     return {
       query: '',
-      type: 'highlight',
+      type: 'filter',
       list: [
         '100 Continue («продолжай»)',
         '101 Switching Protocols («переключение протоколов»)',
@@ -121,6 +123,12 @@ export default {
       } else {
         return element;
       }
+    },
+    chooseFilterType: function() {
+      this.type = 'filter';
+    },
+    chooseHighlightType: function() {
+      this.type = 'highlight';
     }
   }
 };
