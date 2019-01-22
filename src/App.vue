@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <router-link class="navbar-brand" to="/">
+        <router-link class="navbar-brand" to="/" exact>
           <i class="fas fa-copy"></i>
           Тестовое задание
         </router-link>

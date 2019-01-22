@@ -1,8 +1,12 @@
-# vue-15-01-19
+# vue-test-task
 
 ## Project setup
 ```
 npm install
+```
+## Fake json server setup
+```
+npm run fake
 ```
 
 ### Compiles and hot-reloads for development
